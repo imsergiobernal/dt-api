@@ -16,6 +16,7 @@
     "tdd": "node_modules/.bin/jest --watchAll"
   },
   "devDependencies": {
+    "esdoc": "^1.1.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -27,7 +28,9 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "esdoc-lint-plugin": "^1.0.2",
     "express": "^4.16.4",
-    "mongoose": "^5.3.12"
+    "mongoose": "^5.3.12",
+    "osmosis": "^1.1.8"
   }
 }
