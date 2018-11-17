@@ -1,29 +1,20 @@
 const express = require('express');
 
-// const Feed = require('./Feed/FeedRoutes');
+const Feed = require('./Feed/FeedRoutes');
 
 const router = express.Router();
 
 router.route('/')
   .get((req, res) => {
-    res.send('Main endpoint');
+    res.send('Please read the documentation');
   })
   .post((req, res) => {
-    res.send('This is not a valid request in main endpoint');
+    res.send('Please read the documentation');
   })
   .put((req, res) => {
-    res.send('This is not a valid request in main endpoint');
+    res.send('Please read the documentation');
   });
 
-router.route('/feeds')
-  .get((req, res) => {
-    res.send('Get all feeds');
-  })
-  .post((req, res) => {
-    res.send('Add a feed');
-  })
-  .put((req, res) => {
-    res.send('Update a feed');
-  });
+router.use('/feeds', Feed);
 
 module.exports = router;
