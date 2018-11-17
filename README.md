@@ -7,32 +7,20 @@ This API is responsible for managing articles incoming from El País, El Mundo a
 
 ## Getting Started
 
+For development, we use docker-compose [overriding configuration](https://docs.docker.com/compose/extends/#adding-and-overriding-configuration).
 
+More about [sharing Compose configurations between files and projects](https://docs.docker.com/compose/extends/)
 ### Prerequisites
 
 Install lastest Docker version for your computer. Do not install Docker Toolbox, it won't work properly.
 
-```
-Give examples
-```
-
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+To get development environment, run the following docker-compose command
 
 ```
-Give the example
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
