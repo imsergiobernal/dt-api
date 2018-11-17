@@ -3,13 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const routes = require('./routes');
+
 // Set mongoose mpromise to global promise
 mongoose.Promise = global.Promise;
 
 // Connect mongo database
-mongoose.connect(process.env.MONGODB_URI, {
-  useMongoClient: true,
-})
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('mongoose connected!'))
   .catch(err => console.error('mongoose error connecting: ', err));
 
@@ -23,8 +23,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Main endpoint');
-});
+app.use('/', routes);
 
 server.listen(port, () => console.info(`Listening on port ${port}`));
