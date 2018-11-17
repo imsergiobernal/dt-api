@@ -5,7 +5,7 @@ services:
     volumes:
       - "./src:/api/src"
     ports:
-      - "3000"
+      - "3000:3000"
     env_file: .env
     command: npm run dev
     depends_on:
@@ -13,4 +13,4 @@ services:
   db:
     image: mongo:latest
     ports:
-      - "27017"
+      - "27017:27017"
