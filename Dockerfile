@@ -3,7 +3,7 @@ FROM node:10.13
 RUN mkdir /api
 
 WORKDIR /api
-COPY package.json /api/package.json
+COPY . .
 RUN npm install
 
 EXPOSE 3000
