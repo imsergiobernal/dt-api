@@ -9,9 +9,14 @@ const routes = require('./routes');
 mongoose.Promise = global.Promise;
 
 // Connect mongo database
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('mongoose connected!'))
-  .catch(err => console.error('mongoose error connecting: ', err));
+mongoose.connect(process.env.MONGODB_URI);
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('mongoose connected!');
+});
 
 const app = express();
 const port = 3000;
