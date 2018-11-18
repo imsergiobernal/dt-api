@@ -1,6 +1,6 @@
 const express = require('express');
 
-const getHeadlines = require('./HeadlinesServices');
+const { getHeadlines } = require('./HeadlinesServices');
 
 const router = express.Router();
 
@@ -9,8 +9,12 @@ const router = express.Router();
  * @return {Array} List of ElPais headlines
  */
 router.get('/', async (req, res) => {
-  const headlines = await getHeadlines();
-  return res.status(200).json(headlines);
+  try {
+    const headlines = await getHeadlines();
+    return res.status(200).json(headlines);
+  } catch (err) {
+    return res.status(500);
+  }
 });
 
 module.exports = router;

@@ -12,8 +12,12 @@ const router = express.Router();
  * @return {Array} List of feeds
  */
 router.get('/', async (req, res) => {
-  const feeds = await getAllFeeds();
-  return res.status(200).json(feeds);
+  try {
+    const feeds = await getAllFeeds();
+    return res.status(200).json(feeds);
+  } catch (err) {
+    return res.status(500);
+  }
 });
 
 /**
@@ -23,12 +27,14 @@ router.post('/', async (req, res) => {
   const {
     title, body, image, source, publisher,
   } = req.body;
-
-  const result = await createFeed({
-    title, body, image, source, publisher,
-  });
-
-  return res.status(200).json(result);
+  try {
+    const result = await createFeed({
+      title, body, image, source, publisher,
+    });
+    return res.status(200).json(result);
+  } catch (err) {
+    return res.status(500);
+  }
 });
 
 /**
@@ -36,9 +42,12 @@ router.post('/', async (req, res) => {
  */
 router.get('/:feedId', async (req, res) => {
   const { feedId } = req.params;
-
-  const feed = await getFeedByID(feedId);
-  return res.status(200).json(feed);
+  try {
+    const feed = await getFeedByID(feedId);
+    return res.status(200).json(feed);
+  } catch (err) {
+    return res.status(500);
+  }
 });
 
 /**
@@ -49,12 +58,14 @@ router.put('/:feedId', async (req, res) => {
   const {
     title, body, image, source, publisher,
   } = req.body;
-
-  const feed = await updateFeed(feedId, {
-    title, body, image, source, publisher,
-  });
-
-  return res.status(200).json(feed);
+  try {
+    const feed = await updateFeed(feedId, {
+      title, body, image, source, publisher,
+    });
+    return res.status(200).json(feed);
+  } catch (err) {
+    return res.status(500);
+  }
 });
 
 /**
@@ -62,8 +73,12 @@ router.put('/:feedId', async (req, res) => {
  */
 router.delete('/:feedId', async (req, res) => {
   const { feedId } = req.params;
-  const feed = await deleteFeed(feedId);
-  return res.status(200).json(feed);
+  try {
+    const feed = await deleteFeed(feedId);
+    return res.status(200).json(feed);
+  } catch (err) {
+    return res.status(500);
+  }
 });
 
 module.exports = router;
