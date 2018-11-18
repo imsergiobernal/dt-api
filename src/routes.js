@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Feed = require('./Feed/FeedRoutes');
+const Headlines = require('./Headlines/HeadlinesRoutes');
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.route('/')
   });
 
 router.use('/feeds', Feed);
+router.use('/headlines', Headlines);
 
 module.exports = router;
