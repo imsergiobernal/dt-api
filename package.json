@@ -29,9 +29,12 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.3.12",
-    "osmosis": "^1.1.8"
+    "osmosis": "^1.1.8",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
   }
 }
