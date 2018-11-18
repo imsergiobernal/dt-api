@@ -1,9 +1,16 @@
 const express = require('express');
 
-const getHeadlines = require('./Routes/getHeadlines');
+const getHeadlines = require('./HeadlinesServices');
 
 const router = express.Router();
 
-router.get('/', getHeadlines);
+/**
+ * @todo Needs implementation with ElMundo
+ * @return {Array} List of ElPais headlines
+ */
+router.get('/', async (req, res) => {
+  const headlines = await getHeadlines();
+  return res.status(200).json(headlines);
+});
 
 module.exports = router;
