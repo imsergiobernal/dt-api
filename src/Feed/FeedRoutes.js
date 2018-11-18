@@ -1,48 +1,69 @@
 const express = require('express');
 
-const Feed = require('./FeedModel');
+const getAllFeeds = require('./Controllers/getAllFeeds');
+const createFeed = require('./Controllers/createFeed');
+const getFeedByID = require('./Controllers/getFeedByID');
+const updateFeed = require('./Controllers/updateFeed');
+const deleteFeed = require('./Controllers/deleteFeed');
 
 const router = express.Router();
 
-router.route('/')
-  .get(async (req, res) => {
-    const feeds = await Feed.find();
-    return res.status(200).json(feeds);
-  })
-  .post(async (req, res) => {
-    const {
-      title, body, image, source, publisher,
-    } = req.body;
+/**
+ * @return {Array} List of feeds
+ */
+router.get('/', async (req, res) => {
+  const feeds = await getAllFeeds();
+  return res.status(200).json(feeds);
+});
 
-    const feed = new Feed({
-      title, body, image, source, publisher,
-    });
-    const result = await feed.save();
-    res.status(200).json(result);
+/**
+ * @return {Array} The created feed
+ */
+router.post('/', async (req, res) => {
+  const {
+    title, body, image, source, publisher,
+  } = req.body;
+
+  const result = await createFeed({
+    title, body, image, source, publisher,
   });
 
-router.route('/:feedId')
-  .get(async (req, res) => {
-    const { feedId } = req.params;
+  return res.status(200).json(result);
+});
 
-    const feeds = await Feed.findById(feedId);
-    return res.status(200).json(feeds);
-  })
-  .put(async (req, res) => {
-    const { feedId } = req.body;
-    const {
-      title, body, image, source, publisher,
-    } = req.body;
+/**
+ * @return {Object} Feed found by id
+ */
+router.get('/:feedId', async (req, res) => {
+  const { feedId } = req.params;
 
-    const feeds = await Feed.findByIdAndUpdate(feedId, {
-      title, body, image, source, publisher,
-    });
-    return res.status(200).json(feeds);
-  })
-  .delete(async (req, res) => {
-    const { feedId } = req.params;
-    const feed = await Feed.findByIdAndDelete(feedId);
-    return res.status(200).json(feed);
+  const feed = await getFeedByID(feedId);
+  return res.status(200).json(feed);
+});
+
+/**
+ * @return {Object} Document updated if all was successful
+ */
+router.put('/:feedId', async (req, res) => {
+  const { feedId } = req.params;
+  const {
+    title, body, image, source, publisher,
+  } = req.body;
+
+  const feed = await updateFeed(feedId, {
+    title, body, image, source, publisher,
   });
+
+  return res.status(200).json(feed);
+});
+
+/**
+ * @return {Object} Deleted feed document
+ */
+router.delete('/:feedId', async (req, res) => {
+  const { feedId } = req.params;
+  const feed = await deleteFeed(feedId);
+  return res.status(200).json(feed);
+});
 
 module.exports = router;
